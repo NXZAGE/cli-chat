@@ -1,7 +1,11 @@
 <template>
   <BaseContainer>
     <ChatWindow>
-      <ChatMessage/>
+      <ChatMessage v-for="message in messages" :key="message.id">
+        <template #username> {{ message.author }} </template>
+        <template #time> {{ message.datetime }} </template>
+        <template #text> {{ message.text }} </template>
+      </ChatMessage>
     </ChatWindow>
   </BaseContainer>
 </template>
@@ -17,6 +21,31 @@ export default {
     BaseContainer,
     ChatMessage,
     ChatWindow
+  },
+  methods: {
+    loadMessages() {
+      this.axios.get("https://61bcd385d8542f0017824a2a.mockapi.io/messages")
+        .then((responce) => {
+          let messages = responce.data;
+          messages.forEach(element => {
+            let message = {
+              author: element.author,
+              datetime: element.datetime,
+              text: element.text,
+              id: element.id,
+            };
+            this.messages.push(message);
+          });
+        });
+    },
+  },
+  data() {
+    return {
+      messages: [],
+    }
+  },
+  mounted() {
+    this.loadMessages();
   }
 }
 </script>
