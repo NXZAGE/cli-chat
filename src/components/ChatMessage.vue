@@ -1,10 +1,10 @@
 <template>
   <div class="chat-message">
     <div class="info">
-      <slot name="username" />
-      <slot name="time" />
+      <slot name="username"></slot>
+      <slot name="time"></slot>
     </div>
-    <slot name="text" />
+    <slot name="text"></slot>
   </div>
 </template>
 

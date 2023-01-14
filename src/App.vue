@@ -1,6 +1,6 @@
 <template>
   <BaseContainer>
-    <ChatWindow v-on:send-messsage="send">
+    <ChatWindow v-on:send-message="sendMessage">
       <ChatMessage v-for="message in messages" :key="message.id">
         <template #username> {{ message.author }} </template>
         <template #time> {{ message.datetime }} </template>
@@ -41,12 +41,7 @@ export default {
     send(){
       console.log("send method");
     },
-    sendMessage(){
-      let message = {
-        username: "aboba",
-        text: "abbbbbbbbbbbbbbbbbbbbbbo",
-      };
-      console.log("sended????");
+    sendMessage(message){
       this.axios({
         method: "post",
         url: "http://37.77.104.246/api/chat/sendmessage.php",
@@ -58,6 +53,7 @@ export default {
         console.log(responce);
         this.loadMessages();
       });
+      this.loadMessages();
     }
   },
   data() {
